@@ -1,15 +1,17 @@
 NPP.onready = async () => {    
-    provider = ethers.providers.getDefaultProvider(process.env.CURRENT_NETWORK);
-    provider.listAccounts().then(response => {
-        for (let i = 0; i < response.length; i++){
+    PROVIDER.listAccounts().then(response => {
+        let sliced = response.slice(0, MAX_USERS-1);
+        for (let i = 0; i < sliced.length; i++){
+
+            // ADD FIVE STUDENTS
             NPP.addNewRecord({
                 "id": "",
-                "pubk": response[i],
+                "pubk": sliced[i],
                 "degree": "Computer science",
                 "titleExpeditionDate": "",
-                "firstName": toString(capFirst(names[getRandomInt(0, names.length + 1)])),
-                "firstSurname": toString(capFirst(surnames[getRandomInt(0, surnames.length + 1)])),
-                "role": assignRole(i, response),
+                "firstName": getName(),
+                "firstSurname": getSurname(),
+                "role": "1",
                 "subjects": [
                     {
                         "Subject": "Computing Theory",
@@ -77,6 +79,20 @@ NPP.onready = async () => {
                 console.log(content.value.payload);
             })
         }
+        // ADD ADMIN (LAST USER)
+        NPP.addNewRecord({
+            "id": "",
+            "pubk": response[MAX_USERS - 1],
+            "degree": "Computer science",
+            "titleExpeditionDate": "",
+            "firstName": getName(),
+            "firstSurname": getSurname(),
+            "role": "2",
+            "subjects": []
+        }).then(async function (cid) {
+            const content = await NPP.node.dag.get(cid);
+            console.log(content.value.payload);
+        })
     });
 
 }

@@ -11,8 +11,7 @@ function acceptChanges (e) {
 
 async function makeChanges(e) {
     e.preventDefault();
-    provider = ethers.providers.getDefaultProvider(process.env.CURRENT_NETWORK);
-    provider.listAccounts().then(response => {
+    PROVIDER.listAccounts().then(response => {
         for (let i = 0; i < response.length; i++){
             NPP.updateSubjectMark(response[i], "Linear Algebra", toString(getRandomMark()));
             NPP.updateSubjectMark(response[i], "Physics", toString(getRandomMark()));

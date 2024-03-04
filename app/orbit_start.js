@@ -32,6 +32,8 @@ class IpfsConstructor {
         this.records = await this.orbitdb.docs('records', docStoreOptions)
         await console.log("The id/address/multiaddress of the 'docstore' DB is " + this.records.id);
         await this.records.load();
+        // wait 2 secs
+        await new Promise(done => setTimeout(() => done(), 2000));
         this.onready();
     }
 

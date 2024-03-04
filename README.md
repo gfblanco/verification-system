@@ -1,6 +1,6 @@
 # A Practical Application for CV Verification
 
-This app has been presented in the following paper: “Green and Energy Efficient Blockchain: A Practical Application for CV Verification”, submited to IEEE Access (JCR Q2 TELECOMMUNICATIONS). You can find in such paper further information on the experiments and on the proposed Dapp. If you use the code of this repository, please cite us as follows:
+This app has been presented in the following paper: “_Green and Energy Efficient Blockchain: A Practical Application for CV Verification_”, submited to IEEE Access (JCR Q2 TELECOMMUNICATIONS). You can find in such paper further information on the experiments and on the proposed Dapp. If you use the code of this repository, please cite us as follows:
 
 ```
 @misc{green1,
@@ -48,15 +48,25 @@ comparing its hash with all of the hashes stored in the blockchain).
 
 ## Requirements
 
-The developed Dapp has been implemented using [Node](https://nodejs.org/en/download/current), [OrbitDB](https://orbitdb.org/), and [Truffle](https://archive.trufflesuite.com/docs/) as main technologies/libraries. Truffle has been recently replaced by [Hardhat](https://hardhat.org/hardhat-runner/docs/getting-started) as the main framework to develop Decentralized Applications. We encourage future developers to switch to Hardhat.
+The developed Dapp has been implemented using [Node](https://nodejs.org/en/download/current), [OrbitDB](https://orbitdb.org/) and [Hardhat](https://hardhat.org/hardhat-runner/docs/getting-started) as main technologies/libraries.
 
 ## Usage
 
-1. A valid contract address and network address must be filled in the `.env` file.
+1. Install dependencies executing `npm install`
 
-2. Execute `node server.js` in command line.
+2. You need to compile the `Record.sol`. You can use Remix, but Hardhat already has a more handful way to do this using scripts. More precisely, the `scripts/deploy.js` deploys the contract and gives you the contract address. Then, you will need to extract the contract ABI, which will be located in the contract artifacts (`/artifacts`).
+  - `npx hardhat compile --force`
+  - `npx hardhat run --network hardhat scripts/deploy.js`
 
-3. Open `localhost:<port>` in browser, where your Ethereum network is deployed.
+3. Then, the constants present in `app/contract_connection.js` must be replaced (`CONTRACT_ADDRESS`, `CONTRACT_ABI`, `NETWORK_ADDRESS`...).
+
+4. Now you can start the app. Open two shell windows. On the one hand execute `node server.js`. On the other hand execute `npx hardhat node --port <port>`.
+
+5. Open `localhost:3001` in your browser. Note that some bugs can appear when using certain browsers. The console output when opening the Dapp should be like the following screenshot:
+
+![alt text](image.png)
+ 
+Where four students and one admin are introduced in OrbitDB. Note that the first four users are students and the last one is admin, so use the accounts in your wallet accordingly. The OrbitDB data will not persist if the page is refreshed. To change between accounts, use the Logout button.
 
 ## Demo
 
