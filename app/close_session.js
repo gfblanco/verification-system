@@ -10,7 +10,6 @@ const closeSession = () => {
 
     document.getElementById('updateForm').setAttribute("style", "display: none;")
     document.getElementById('moreOptionsForm').setAttribute("style", "display: none;")
-    document.getElementById('closeForm').setAttribute("style", "display: none;")
 
     var container = document.getElementById("verifyForm");
     var content = container.innerHTML;

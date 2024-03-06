@@ -15,7 +15,7 @@ function displayOne (r, elem) {
     let p = document.createElement("p");
     p.appendChild(document.createElement("br"));
 
-    let pText = document.createTextNode("Id: " + r.id);
+    let pText = document.createTextNode("Transaction Hash: " + r.txHash);
     p.appendChild(pText);
     p.appendChild(document.createElement("br"));
 
@@ -78,7 +78,7 @@ function display (records, elem) {
 
         let p = document.createElement("p");
 
-        let pText = document.createTextNode("Id: " + r.id);
+        let pText = document.createTextNode("Transaction Hash: " + r.txHash);
         p.appendChild(pText);
         p.appendChild(document.createElement("br"));
 
@@ -98,7 +98,7 @@ function display (records, elem) {
         p.appendChild(pText5);
         p.appendChild(document.createElement("br"));
 
-        let pText6 = document.createTextNode("Surname: " + r.firstSurname + " " + r.secondSurname);
+        let pText6 = document.createTextNode("Surname: " + r.firstSurname);
         p.appendChild(pText6);
         p.appendChild(document.createElement("br"));
 

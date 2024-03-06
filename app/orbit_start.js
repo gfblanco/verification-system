@@ -30,7 +30,7 @@ class IpfsConstructor {
             indexBy: 'pubk',
         }
         this.records = await this.orbitdb.docs('records', docStoreOptions)
-        await console.log("The id/address/multiaddress of the 'docstore' DB is " + this.records.id);
+        await console.log("The id/address/multiaddress of the 'docstore' DB is " + this.orbitdb.identity.id);
         await this.records.load();
         // wait 2 secs
         await new Promise(done => setTimeout(() => done(), 2000));
@@ -52,9 +52,9 @@ class IpfsConstructor {
         return singleRecord
     }
 
-    async updateRecordByPubk(pubk, id) {
+    async updateRecordTxHashByPubk(pubk, txHash) {
         const record = await this.getRecordByPubk(pubk);
-        record.id = id;
+        record.txHash = txHash;
         return await this.records.put(record);
     }    
     
@@ -68,11 +68,6 @@ class IpfsConstructor {
             }
         });
         return await this.records.put(record);
-    }
-
-    async checkId(pubk) {
-        const record = await this.getRecordByPubk(pubk);
-        return record.id === "";
     }
 
 }

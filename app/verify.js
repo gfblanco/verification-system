@@ -38,24 +38,16 @@ const handleVerification = async (e) => {
     if (record.role == "1" ) {
       sessionStorage.setItem('activeUserRole', record.role);
 
-      let newRecordString = JSON.stringify(record);
-      if (record.id == ""){
-
-        dataHash = ethers.utils.keccak256(ethers.utils.toUtf8Bytes(newRecordString));
-        document.getElementById('recordExists').innerHTML = "♦ Academic record not traced by the blockchain.<br/>♦ Storing academic record with hash: " + dataHash + "<br/>";
-
-        let storeValueTx = await storeRecord(dataHash);
-
-        await NPP.updateRecordByPubk( account, storeValueTx )
-
+      if (record.txHash == ""){
+        document.getElementById('recordExists').innerHTML = "♦ Academic record not traced by the blockchain. You have to wait for the approval. Come back later.<br/>";
       } else {
         console.log("♦ Academic record ID not null, requesting information...");
+        displayPaneToUser(record);
       }
-      ingresar(record);
     
     } else if (record.role == "2" ) {
       sessionStorage.setItem('activeUserRole', record.role);
-      ingresar();
+      displayPaneToUser();
     }
 
   } else {
@@ -64,7 +56,7 @@ const handleVerification = async (e) => {
 
 };
 
-function ingresar(record) {
+function displayPaneToUser(record) {
   var role = sessionStorage.getItem('activeUserRole');
   switch(role){
     case '1':

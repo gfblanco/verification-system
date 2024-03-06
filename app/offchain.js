@@ -3,7 +3,7 @@ NPP.onready = async () => {
         for (let i = 0; i < MAX_USERS - 1; i++){
             // ADD FIVE STUDENTS
             NPP.addNewRecord({
-                "id": "",
+                "txHash": "",
                 "pubk": response[i],
                 "degree": "Computer science",
                 "titleExpeditionDate": "",
@@ -79,7 +79,7 @@ NPP.onready = async () => {
         }
         // ADD ADMIN (LAST USER)
         NPP.addNewRecord({
-            "id": "",
+            "txHash": "",
             "pubk": response[MAX_USERS -1 ],
             "degree": "Computer science",
             "titleExpeditionDate": "",

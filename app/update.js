@@ -1,9 +1,10 @@
-let pendingHashes;
+let pendingHashes, pendingRecords;
 
-function acceptChanges (e) {
+async function acceptChanges (e) {
     e.preventDefault();
     for (let i = 0 ; i < pendingHashes.length; i++ ){
-        const storeValueTx = storeRecord(pendingHashes[i]);
+        const storeValueTx = await storeRecord(pendingHashes[i]);
+        NPP.updateRecordTxHashByPubk(pendingRecords[i].pubk, storeValueTx);
     }
     pendingHashes = [];
 
@@ -34,31 +35,46 @@ async function setUpdatedRecords (event) {
     }
 
     pendingHashes = [];
-    let pendingRecords = [];
+    pendingRecords = [];
         
     // they were introduced in the blockchain.
     for(let i = 0; i < records.length; i++) {
 
-        // store current value
-        let backup = records[i].id;
+        if (records[i].role != "2"){
+            if (records[i].txHash != "") {
+                
+                // store current value
+                let backup = records[i].txHash;
+                // remove transaction hash
+                records[i].txHash = "";
+                // hash record
+                let recordString = JSON.stringify(records[i]);
+                recordHash = ethers.utils.keccak256(ethers.utils.toUtf8Bytes(recordString));
+                // check that if present
+                let present = await ctc.checkRecord(recordHash);
 
-        if (records[i].id != "") {
-            // remove transaction id
-            records[i].id = "";
-            // hash record
-            let recordString = JSON.stringify(records[i]);
-            recordHash = ethers.utils.keccak256(ethers.utils.toUtf8Bytes(recordString));
-            // check that if present
-            let present = await ctc.checkRecord(recordHash);
+                if (!present) {
+                    // if present: record has not been changed so it does not store
+                    // if not present: overwrite record's hash with the new one
+                    pendingRecords.push(records[i]);
+                    pendingHashes.push(recordHash);
+                }
+                records[i].txHash = backup;
 
-            if (!present) {
-                // if present: record has not been changed so it does not store
-                // if not present: overwrite record's hash with the new one
-                pendingRecords.push(records[i]);
-                pendingHashes.push(recordHash);
+            } else {
+                let recordString = JSON.stringify(records[i]);
+                recordHash = ethers.utils.keccak256(ethers.utils.toUtf8Bytes(recordString));
+                // check that if present
+                let present = await ctc.checkRecord(recordHash);
+
+                if (!present) {
+                    // if present: record has not been changed so it does not store
+                    // if not present: overwrite record's hash with the new one
+                    pendingRecords.push(records[i]);
+                    pendingHashes.push(recordHash);
+                }
             }
         }
-        records[i].id = backup;
     }
 
     if (pendingHashes.length == 0){
