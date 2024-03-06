@@ -26,7 +26,7 @@ const handleVerification = async (e) => {
     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
     const account = accounts[0];
 
-    const record = NPP.getRecordByHash(account);
+    const record = NPP.getRecordByPubk(account);
 
     if (record == undefined) {
       document.getElementById('validSignature').innerHTML = "♦ Your public key does not match with any academic record. <br/>";
@@ -46,7 +46,7 @@ const handleVerification = async (e) => {
 
         let storeValueTx = await storeRecord(dataHash);
 
-        await NPP.updateRecordByHash( account, storeValueTx )
+        await NPP.updateRecordByPubk( account, storeValueTx )
 
       } else {
         console.log("♦ Academic record ID not null, requesting information...");

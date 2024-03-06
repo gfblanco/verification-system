@@ -1,11 +1,10 @@
 NPP.onready = async () => {    
     PROVIDER.listAccounts().then(response => {
-        let sliced = response.slice(0, MAX_USERS);
-        for (let i = 0; i < sliced.length - 1; i++){
+        for (let i = 0; i < MAX_USERS - 1; i++){
             // ADD FIVE STUDENTS
             NPP.addNewRecord({
                 "id": "",
-                "pubk": sliced[i],
+                "pubk": response[i],
                 "degree": "Computer science",
                 "titleExpeditionDate": "",
                 "firstName": getName(),
@@ -81,7 +80,7 @@ NPP.onready = async () => {
         // ADD ADMIN (LAST USER)
         NPP.addNewRecord({
             "id": "",
-            "pubk": sliced[sliced.length-1],
+            "pubk": response[MAX_USERS -1 ],
             "degree": "Computer science",
             "titleExpeditionDate": "",
             "firstName": getName(),

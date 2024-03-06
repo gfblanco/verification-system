@@ -47,19 +47,19 @@ class IpfsConstructor {
         return records
     }
 
-    getRecordByHash(hash) {
-        const singleRecord = this.records.get(hash)[0]
+    getRecordByPubk(pubk) {
+        const singleRecord = this.records.get(pubk)[0]
         return singleRecord
     }
 
-    async updateRecordByHash(hash, id) {
-        const record = await this.getRecordByHash(hash);
+    async updateRecordByPubk(pubk, id) {
+        const record = await this.getRecordByPubk(pubk);
         record.id = id;
         return await this.records.put(record);
     }    
     
-    async updateSubjectMark(hash, subject, mark) {
-        const record = await this.getRecordByHash(hash);
+    async updateSubjectMark(pubk, subject, mark) {
+        const record = await this.getRecordByPubk(pubk);
         record.subjects.forEach((sub) => {
             if (sub["Subject"] == subject){
                 console.log("Before: " + sub["Mark"]);
@@ -70,8 +70,8 @@ class IpfsConstructor {
         return await this.records.put(record);
     }
 
-    async checkId(hash) {
-        const record = await this.getRecordByHash(hash);
+    async checkId(pubk) {
+        const record = await this.getRecordByPubk(pubk);
         return record.id === "";
     }
 
