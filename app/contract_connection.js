@@ -24,8 +24,8 @@ fetch('http://localhost:3001/Record.json')
 const NETWORK_ADRRESS = "http://localhost:8544/";
 const CONTRACT_ABI = [ { "anonymous": false, "inputs": [ { "indexed": false, "internalType": "uint256", "name": "id", "type": "uint256" } ], "name": "NewRecord", "type": "event" }, { "inputs": [ { "internalType": "uint256", "name": "_recordHash", "type": "uint256" } ], "name": "checkRecord", "outputs": [ { "internalType": "bool", "name": "", "type": "bool" } ], "stateMutability": "view", "type": "function" }, { "inputs": [ { "internalType": "uint256", "name": "_id", "type": "uint256" } ], "name": "getRecord", "outputs": [ { "internalType": "uint256", "name": "", "type": "uint256" } ], "stateMutability": "view", "type": "function" }, { "inputs": [ { "internalType": "uint256", "name": "", "type": "uint256" } ], "name": "recordToOwner", "outputs": [ { "internalType": "address", "name": "", "type": "address" } ], "stateMutability": "view", "type": "function" }, { "inputs": [ { "internalType": "uint256", "name": "", "type": "uint256" } ], "name": "records", "outputs": [ { "internalType": "uint256", "name": "", "type": "uint256" } ], "stateMutability": "view", "type": "function" }, { "inputs": [ { "internalType": "uint256", "name": "_recordHash", "type": "uint256" } ], "name": "storeRecord", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [ { "internalType": "uint256", "name": "_id", "type": "uint256" }, { "internalType": "uint256", "name": "_newRecordHash", "type": "uint256" } ], "name": "updateRecord", "outputs": [], "stateMutability": "nonpayable", "type": "function" } ];
 const CONTRACT_ADDRESS = "0x5fbdb2315678afecb367f032d93f642f64180aa3";
-const PROVIDER = window.ethers.getDefaultProvider(NETWORK_ADRRESS);
-const MAX_USERS = 5; // the last one is always admin (see offchain.js)
+const PROVIDER = new ethers.providers.Web3Provider(window.ethereum);
+const MAX_USERS = 3; // the last one is always admin (see offchain.js)
 
 async function connect() {
     if (typeof window.ethereum !== "undefined"){
