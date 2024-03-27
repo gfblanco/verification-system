@@ -135,7 +135,7 @@ The aforementioned AR can be verified by everyone by simply introducing it in th
 
 ## Funding
 
-Grants HELENE funded by MCIN and AEI (10.13039/501100011033) and by the European Union NextGenerationEU/ PRTR.
+This development has been funded by grant TED2021-129433A-C22 (HELENE) funded by MCIN and AEI (10.13039/501100011033) and by the European Union NextGenerationEU/ PRTR.
 
 ## License
 Shield: [![CC BY 4.0][cc-by-shield]][cc-by]
